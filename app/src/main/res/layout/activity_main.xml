@@ -36,7 +36,7 @@
         app:layout_constraintTop_toBottomOf="@id/titleTextView">
 
         <EditText
-            android:id="@+id/usernameEditText"
+            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="24dp"
@@ -48,7 +48,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/phoneEditText"
+            android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="24dp"
@@ -62,7 +62,7 @@
             app:layout_constraintTop_toBottomOf="@id/usernameContainer" />
     </LinearLayout>
 
-    <Button
+     <Button
         android:id="@+id/registerButton"
         android:layout_width="0dp"
         android:layout_height="48dp"
@@ -81,7 +81,7 @@
         app:layout_constraintTop_toBottomOf="@id/usernameContainer" />
 
     <TextView
-        android:id="@+id/loginTextView"
+        android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="84dp"

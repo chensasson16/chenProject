@@ -7,7 +7,7 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/aboutMeEditText"
+        android:id="@+id/aboutMe"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginStart="32dp"
@@ -36,10 +36,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nameEditText" />
+        app:layout_constraintTop_toBottomOf="@id/Name" />
 
     <EditText
-        android:id="@+id/nameEditText"
+        android:id="@+id/Name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@id/nameLabel" />
 
     <EditText
-        android:id="@+id/priceEditText"
+        android:id="@+id/prices"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -83,7 +83,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/portfolioEditText" />
+        app:layout_constraintTop_toBottomOf="@id/portfolio" />
 
     <Button
         android:id="@+id/submitButton"
@@ -100,7 +100,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/priceEditText" />
+        app:layout_constraintTop_toBottomOf="@id/prices" />
 
     <TextView
         android:id="@+id/nameLabel"
@@ -116,7 +116,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/portfolioEditText"
+        android:id="@+id/portfolio"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -144,7 +144,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/aboutMeEditText" />
+        app:layout_constraintTop_toBottomOf="@id/aboutMe" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

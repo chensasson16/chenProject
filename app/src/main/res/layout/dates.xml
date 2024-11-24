@@ -8,7 +8,7 @@
     android:padding="16dp">>
 
     <CalendarView
-        android:id="@+id/calendarView"
+        android:id="@+id/calendar"
         android:layout_width="369dp"
         android:layout_height="309dp"
         tools:layout_editor_absoluteX="5dp"
