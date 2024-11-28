@@ -1,6 +1,7 @@
 package com.example.chensproject
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -28,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         login = findViewById(R.id.login)
         register.setOnClickListener({
             Toast.makeText(this,"hi+${userName.text}",Toast.LENGTH_SHORT).show()
+            val intent = Intent(this,homescreen::class.java)
+            startActivity(intent)
         })
     }
 }

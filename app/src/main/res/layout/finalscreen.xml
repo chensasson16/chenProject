@@ -48,7 +48,7 @@
         tools:layout_editor_absoluteY="441dp" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/finaldate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleX="2"
@@ -58,7 +58,7 @@
         tools:layout_editor_absoluteY="266dp" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/finalhour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleX="2"
@@ -68,7 +68,7 @@
         tools:layout_editor_absoluteY="359dp" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/at"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleX="2"

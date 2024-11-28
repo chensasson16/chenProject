@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class homescreen {class homescreen : AppCompatActivity() {
+class homescreen : AppCompatActivity() {
     lateinit var businessdatabase: TextView;
     lateinit var search: SearchView;
 
@@ -21,5 +21,4 @@ class homescreen {class homescreen : AppCompatActivity() {
 
 
     }
-}
 }

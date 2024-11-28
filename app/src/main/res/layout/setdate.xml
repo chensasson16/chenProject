@@ -8,7 +8,7 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/date"
         android:layout_width="185dp"
         android:layout_height="60dp"
         android:text="תאריך"
@@ -19,7 +19,7 @@
         tools:layout_editor_absoluteY="121dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/hour2"
         android:layout_width="205dp"
         android:layout_height="80dp"
         android:backgroundTint="#565555"
@@ -28,7 +28,7 @@
         tools:layout_editor_absoluteY="412dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/hour1"
         android:layout_width="201dp"
         android:layout_height="74dp"
         android:backgroundTint="#474747"
@@ -39,7 +39,7 @@
         tools:layout_editor_absoluteY="314dp" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/freehours"
         android:layout_width="136dp"
         android:layout_height="38dp"
         android:lineSpacingExtra="48sp"
