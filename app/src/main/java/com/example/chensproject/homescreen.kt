@@ -7,9 +7,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class homescreen : AppCompatActivity() {
     lateinit var businessdatabase: TextView;
+    lateinit var rv:RecyclerView;
+    var bussinesnamesList=ArrayList<String>();
+    var bussineslocationList=ArrayList<String>();
     lateinit var search: SearchView;
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +23,14 @@ class homescreen : AppCompatActivity() {
         setContentView(R.layout.homescreen)
         businessdatabase = findViewById(R.id.businessdatabase)
         search = findViewById(R.id.search)
+        rv=findViewById(R.id.busirv);
+        rv.layoutManager=LinearLayoutManager(this@homescreen)
+        bussinesnamesList.add("נעמה ניילס")
+        bussinesnamesList.add("אריאלה ביטון")
+        bussinesnamesList.add("שירה ציפורניים")
 
-
+        bussineslocationList.add("אשדוד")
+        bussineslocationList.add("שדרות")
+        bussineslocationList.add("אשקלון")
     }
 }

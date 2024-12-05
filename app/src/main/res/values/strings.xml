@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">chensproject</string>
+    <string-array name="bussines_names">
+        <item>נעמה ניילס</item>
+        <item>אריאלה ביטון</item>
+        <item>שירה ציפורניים</item>
+
+    </string-array>
+    <string-array name="bussines_locations">
+        <item>אשדוד</item>
+        <item>שדרות</item>
+        <item>אשקלון</item>
+
+    </string-array>
 </resources>

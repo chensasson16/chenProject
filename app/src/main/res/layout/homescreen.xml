@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,66 +10,36 @@
 
     <TextView
         android:id="@+id/businessdatabase"
-        android:layout_width="279dp"
-        android:layout_height="55dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:text="מאגר עסקים"
         android:textSize="34sp"
+        android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="298dp"
-        android:layout_height="167dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="56dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search">
-
-        <TextView
-            android:id="@+id/location"
-            android:layout_width="114dp"
-            android:layout_height="51dp"
-            android:layout_marginStart="32dp"
-            android:text="מיקום"
-            android:textSize="34sp"
-            app:layout_constraintBottom_toTopOf="@+id/gallery"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.47" />
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="111dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="16dp"
-            android:text="שם"
-            android:textSize="34sp"
-            app:layout_constraintBottom_toTopOf="@+id/gallery"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.432" />
-
-        <TextView
-            android:id="@+id/gallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginBottom="28dp"
-            android:text="גלריית תמונות"
-            android:textSize="34sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintVertical_bias="0.2" />
 
     <SearchView
         android:id="@+id/search"
-        android:layout_width="340dp"
+        android:layout_width="0dp"
         android:layout_height="49dp"
-        android:layout_marginStart="28dp"
         android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/businessdatabase" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/businessdatabase" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/busirv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/search"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+         />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
