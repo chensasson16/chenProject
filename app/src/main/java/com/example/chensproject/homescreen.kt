@@ -16,6 +16,8 @@ class homescreen : AppCompatActivity() {
     var bussinesnamesList=ArrayList<String>();
     var bussineslocationList=ArrayList<String>();
     lateinit var search: SearchView;
+    lateinit var adapter : BussinesCardAdpater
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,5 +34,11 @@ class homescreen : AppCompatActivity() {
         bussineslocationList.add("אשדוד")
         bussineslocationList.add("שדרות")
         bussineslocationList.add("אשקלון")
+
+
+
+        adapter = BussinesCardAdpater(bussinesnamesList,bussineslocationList,this@homescreen)
+
+        rv.adapter= adapter
     }
 }

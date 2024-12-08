@@ -1,6 +1,7 @@
 package com.example.chensproject
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -9,7 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 class BussinesCardAdpater(
     var bussinesnamesList: ArrayList<String>,
     var bussineslocationList: ArrayList<String>,
-    var context: Context) : RecyclerView.Adapter<BussinesCardAdpater.BussinesViewHolder>() {
+    var context: Context) : RecyclerView.Adapter<BussinesCardAdpater.BussinesViewHolder>()
+
+
+{
 
     class BussinesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         var textViewBussinesName: TextView =itemView.findViewById(R.id.bussinesName)
@@ -18,15 +22,19 @@ class BussinesCardAdpater(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BussinesViewHolder {
-        TODO("Not yet implemented")
+       val view: View = LayoutInflater.from(parent.context)
+           .inflate(R.layout.bussinescard,parent,false)
+
+        return BussinesViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return bussinesnamesList.size
     }
 
     override fun onBindViewHolder(holder: BussinesViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.textViewBussinesName.text = bussinesnamesList.get(position)
+        holder.textViewlocationName.text= bussineslocationList.get(position)
     }
 
 }

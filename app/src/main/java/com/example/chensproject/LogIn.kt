@@ -24,7 +24,7 @@ class LogIn : AppCompatActivity() {
         userName = findViewById(R.id.username)
         phone = findViewById(R.id.phone)
         login = findViewById(R.id.loginButton)
-            login.setOnClickListener()
+        //login.setOnClickListener()
         register = findViewById(R.id.register)
         login.setOnClickListener({
             Toast.makeText(this,"hi+${userName.text}", Toast.LENGTH_SHORT).show()
