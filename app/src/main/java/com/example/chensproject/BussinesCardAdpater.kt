@@ -37,4 +37,5 @@ class BussinesCardAdpater(
         holder.textViewlocationName.text= bussineslocationList.get(position)
     }
 
+
 }

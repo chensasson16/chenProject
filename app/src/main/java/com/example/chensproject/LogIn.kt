@@ -1,6 +1,7 @@
 package com.example.chensproject
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds.Email
 import android.util.Log
@@ -51,6 +52,13 @@ class Login : AppCompatActivity() {
                 }
             Toast.makeText(this,"hi+${Email.toString()}", Toast.LENGTH_SHORT).show()
     })
+        register.setOnClickListener({
+                val intent = Intent(this,MainActivity::class.java)
+                startActivity(intent)
+        }
+
+        )
+
 
 
 }
