@@ -12,6 +12,7 @@ class Buissnes
     lateinit var prices: EditText;
     lateinit var submitButton: Button;
 
+    constructor( Name: EditText, )
 }
 fun main() {
     val Buissnes = Buissnes()
