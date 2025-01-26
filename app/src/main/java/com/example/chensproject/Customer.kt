@@ -2,13 +2,17 @@ package com.example.chensproject
 
 import android.provider.ContactsContract.CommonDataKinds.Phone
 
-class Customer {
+class Customer (Name: String, Phone: String, Queuelist: List){
     private var Name: String
     private var Phone: String
     private var Queuelist = listOf<queue>()
 
-    constructor(Name: String, Phone: String, Queuelist: List):
-            this(Name,Phone,Queuelist)
+    init {
+        this.Name=Name
+        this.Phone=Phone
+        this.Queuelist= Queuelist
+    }
+
 
     fun getName(): String {
         return Name

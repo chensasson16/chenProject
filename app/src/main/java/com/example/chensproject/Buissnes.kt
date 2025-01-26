@@ -5,16 +5,22 @@ import android.widget.EditText
 import java.util.jar.Attributes.Name
 
 
-class Buissnes
+class Buissnes(Name: String, aboutMe: String, customersList: List , prices: String)
 {
-    private var Name: String
-    private var aboutMe: String
-    private val customersList = listOf<Customer>()
-    private var prices: String;
+    private lateinit var Name: String
+    private lateinit var aboutMe: String
+    private var customersList = listOf<Customer>()
+    private lateinit var prices: String;
+    private var possiblequeues= listOf<queue>()
+    init{
+        this.Name=Name
+        this.aboutMe=aboutMe
+        this.customersList=customersList
+        this.prices=prices
+        this.possiblequeues=possiblequeues
+    }
 
-    constructor(Name: String, aboutMe: String, customersList: List , prices: String):
-            this(Name, aboutMe, customersList,prices)
- // פעולות מאחזרות
+    // פעולות מאחזרות
 
     fun getName(): String {
         return Name
@@ -31,6 +37,10 @@ class Buissnes
     fun getprices():String{
         return prices
     }
+
+    fun getpossiblequeues(): List<queue>{
+        return possiblequeues
+    }
 // פעולות קובעות
 
     fun setName(newName: String){
@@ -45,6 +55,10 @@ class Buissnes
     fun setprices(newprices: String){
         prices=newprices
     }
+    fun setpossiblequeues(newpossiblequeues: List<queue>){
+        possiblequeues=newpossiblequeues
+    }
+
 
 
 }
