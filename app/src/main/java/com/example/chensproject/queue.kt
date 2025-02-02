@@ -5,6 +5,7 @@ class queue (customer: Customer, hour: String, date: String, atBussines: Buissne
     private lateinit var hour: String
     private lateinit var date: String
     private var atBussines: Buissnes
+    private var isAviable : Boolean = true
 
     init {
         this.Customer  = customer
@@ -29,6 +30,7 @@ class queue (customer: Customer, hour: String, date: String, atBussines: Buissne
 
     fun setCustomer(newCustomer:Customer){
         Customer=newCustomer
+        isAviable = false
     }
     fun sethour(newhour: String){
         hour=newhour
@@ -36,8 +38,11 @@ class queue (customer: Customer, hour: String, date: String, atBussines: Buissne
     fun setdate(newdate: String){
         date=newdate
     }
-    fun setatBussines(newatBussines: Buissnes){
-        atBussines=newatBussines
+    fun setAtBussines(newAtBussines: Buissnes){
+        atBussines=newAtBussines
+    }
+    fun isTaken(newqueue: queue): Boolean{
+        return !isAviable
     }
 
 

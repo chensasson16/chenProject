@@ -5,7 +5,7 @@ import android.widget.EditText
 import java.util.jar.Attributes.Name
 
 
-class Buissnes(Name: String, aboutMe: String, customersList: List , prices: String)
+class Buissnes(Name: String, aboutMe: String, customersList: List<Customer> , prices: String)
 {
     private lateinit var Name: String
     private lateinit var aboutMe: String
@@ -61,7 +61,4 @@ class Buissnes(Name: String, aboutMe: String, customersList: List , prices: Stri
 
 
 
-}
-fun main() {
-    val Buissnes = Buissnes()
 }
