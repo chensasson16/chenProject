@@ -3,10 +3,10 @@ package com.example.chensproject
 import android.provider.ContactsContract.CommonDataKinds.Phone
 import com.google.common.collect.Queues
 
-class Customer (Name: String, Phone: String, Queuelist: List<queue>){
+class Customer (Name: String, Phone: String, Queuelist: List<Queue>){
     private var Name: String
     private var Phone: String
-    private var Queuelist = mutableListOf<queue>()
+    private var Queuelist = mutableListOf<Queue>()
 //פעולה בונה
     init {
         this.Name=Name
@@ -23,7 +23,7 @@ class Customer (Name: String, Phone: String, Queuelist: List<queue>){
         return Phone
     }
 
-    fun getQueuelist(): List<queue> {
+    fun getQueuelist(): List<Queue> {
         return Queuelist
     }
 
@@ -33,11 +33,13 @@ class Customer (Name: String, Phone: String, Queuelist: List<queue>){
     fun setPhone(newPhone: String){
         Phone=newPhone
     }
-    fun setQueuelist(newQueuelist: List<queue>){
+    fun setQueuelist(newQueuelist: List<Queue>){
         Queuelist = newQueuelist.toMutableList()
     }
-    fun cancleQueue(newqueue:queue ){
+    fun cancleQueue(newqueue:Queue ){
         Queuelist.remove(newqueue)
     }
-
+    fun addQueue(newqueue: Queue){
+        Queuelist.add(newqueue)
+    }
 }

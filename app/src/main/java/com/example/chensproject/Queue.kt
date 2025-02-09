@@ -1,6 +1,6 @@
 package com.example.chensproject
 
-class queue (customer: Customer, hour: String, date: String, atBussines: Buissnes){
+class Queue (customer: Customer, hour: String, date: String, atBussines: Buissnes){
     private lateinit var Customer: Customer
     private lateinit var hour: String
     private lateinit var date: String
@@ -27,7 +27,7 @@ class queue (customer: Customer, hour: String, date: String, atBussines: Buissne
         return atBussines
     }
 
-
+    //פעולות של המחלקה
     fun setCustomer(newCustomer:Customer){
         Customer=newCustomer
         isAviable = false
@@ -41,7 +41,7 @@ class queue (customer: Customer, hour: String, date: String, atBussines: Buissne
     fun setAtBussines(newAtBussines: Buissnes){
         atBussines=newAtBussines
     }
-    fun isTaken(newqueue: queue): Boolean{
+    fun isTaken(newqueue: Queue): Boolean{
         return !isAviable
     }
 

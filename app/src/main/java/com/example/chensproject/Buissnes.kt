@@ -6,14 +6,14 @@ import java.util.Queue
 import java.util.jar.Attributes.Name
 
 
-class Buissnes(Name: String, aboutMe: String, queeuList: List<queue> ,customersList: List<Customer> , prices: String)
+class Buissnes(Name: String, aboutMe: String, queeuList: List<com.example.chensproject.Queue> ,customersList: List<Customer> , prices: String)
 {
     private lateinit var Name: String
     private lateinit var aboutMe: String
     private var customersList = mutableListOf<Customer>()
     private lateinit var prices: String;
-    private var possiblequeues= mutableListOf<queue>()
-    private var queueList= mutableListOf<queue>()
+    private var possiblequeues= mutableListOf<com.example.chensproject.Queue>()
+    private var queueList= mutableListOf<com.example.chensproject.Queue>()
     init{
         this.Name=Name
         this.aboutMe=aboutMe
@@ -41,7 +41,7 @@ class Buissnes(Name: String, aboutMe: String, queeuList: List<queue> ,customersL
         return prices
     }
 
-    fun getpossiblequeues(): List<queue>{
+    fun getpossiblequeues(): List<com.example.chensproject.Queue>{
         return possiblequeues
     }
 // פעולות קובעות
@@ -58,20 +58,30 @@ class Buissnes(Name: String, aboutMe: String, queeuList: List<queue> ,customersL
     fun setprices(newprices: String){
         prices=newprices
     }
-    fun setpossiblequeues(newpossiblequeues: List<queue>){
+    fun setpossiblequeues(newpossiblequeues: List<com.example.chensproject.Queue>){
         possiblequeues=newpossiblequeues.toMutableList()
     }
+    // פעולות של המחלקה
+    // שינוי שם עסק
     fun changeName(newName: String){
         Name=newName
     }
+    //שינוי מחיר
     fun changePrices(newprices: String){
         prices=newprices
     }
-    fun cancleQueue(newQueue: queue){
+    //ביטול תור
+    fun cancleQueue(newQueue:com.example.chensproject.Queue){
         queueList.remove(newQueue)
         newQueue.getCustomer().cancleQueue(newQueue)
     }
-    fun addPossiblequeue(newQueue: queue){
+    //הוספת תורים אפשריים
+    fun addPossiblequeue(newQueue: com.example.chensproject.Queue){
         possiblequeues.add(newQueue)
+    }
+    //העברת תור תפוס לרשימת התורים והורדה מהרשימה של התורים הפנויים
+    fun updatedQueue(newQueue: com.example.chensproject.Queue){
+        possiblequeues.add(newQueue)
+        queueList.remove(newQueue)
     }
 }
