@@ -15,8 +15,16 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
+    private val costumerCollectionRef=Firebase.firestore.collection("costumers")
+
+
 
     lateinit var register:Button;
     lateinit var login:TextView;
@@ -44,6 +52,16 @@ class MainActivity : AppCompatActivity() {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "createUserWithEmail:success")
                         val user = auth.currentUser
+                        private fun saveCostumer(customer: Customer)= CoroutineScope(Dispatchers.IO).launch {
+                            try {
+                                costumerCollectionRef.add()
+                            } catch (e: Exception){
+                                withContext(Dispatchers.Main){
+                                    Toast.makeText(this@MainActivity, e.message,Toast.LENGTH_LONG).show()
+                                }
+                            }
+                        }
+
                         val intent = Intent(this,homescreen::class.java)
                         startActivity(intent)
                     } else {
