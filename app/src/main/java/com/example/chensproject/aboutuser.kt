@@ -4,8 +4,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+
 class aboutuser : AppCompatActivity() {
     lateinit var Name: EditText;
     lateinit var aboutMe: EditText;
@@ -17,7 +16,7 @@ class aboutuser : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.aboutuser)
-        Name = findViewById(R.id.Name)
+        Name = findViewById(R.id.Email)
         aboutMe = findViewById(R.id.aboutMe)
         portfolio = findViewById(R.id.portfolio)
         prices = findViewById(R.id.prices)

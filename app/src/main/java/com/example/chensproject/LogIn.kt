@@ -3,7 +3,6 @@ package com.example.chensproject
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Email
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -13,7 +12,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 
 class Login : AppCompatActivity() {

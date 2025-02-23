@@ -21,8 +21,8 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.util.jar.Attributes.Name
 
-class MainActivity : AppCompatActivity() {
-    private val costumerCollectionRef=Firebase.firestore.collection("costumers")
+class BussinesRegister : AppCompatActivity() {
+    private val buisnessrCollectionRef=Firebase.firestore.collection("buissness")
 
 
 
@@ -39,18 +39,18 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.register_bussines)
 
 
 
         register = findViewById(R.id.registerButton)
         login = findViewById(R.id.login)
         register.setOnClickListener({
-           var Name= findViewById<EditText>(R.id.Name).text
+            var Name= findViewById<EditText>(R.id.Name).text
             var Email = findViewById<EditText?>(R.id.Email).text
             var SignUpPassword = findViewById<EditText?>(R.id.SignUpPassword).text
             var queueList =   mutableListOf<Queue>()
-
+            var customerList =   mutableListOf<Customer>()
 
             auth.createUserWithEmailAndPassword(Email.toString(), SignUpPassword.toString())
                 .addOnCompleteListener(this) { task ->
@@ -59,8 +59,10 @@ class MainActivity : AppCompatActivity() {
                         Log.d(TAG, "createUserWithEmail:success")
                         val user = auth.currentUser
 
-                        val customer= Customer(Email.toString() ,Name.toString(),queueList  )
-                        saveCustomer(customer)
+
+                        val buissnes= Buissnes(Name.toString(),"MySite",queueList ,customerList,"100")
+
+                        saveBuisness(buissnes)
 
                         val intent = Intent(this,homescreen::class.java)
                         startActivity(intent)
@@ -88,20 +90,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun retrieveCustomer() = CoroutineScope(Dispatchers.IO).launch {
+    private fun saveBuisness(buissnes: Buissnes) = CoroutineScope(Dispatchers.Main).launch {
         try {
-            val querySnapshot = costumerCollectionRef.get().await()
-
-        } catch (e:Exception){
-
-        }
-    }
-
-    private fun saveCustomer(customer: Customer) = CoroutineScope(Dispatchers.Main).launch {
-        try {
-            costumerCollectionRef.add(customer).await()
+            buisnessrCollectionRef.add(buissnes).await()
             withContext(Dispatchers.Main) {
-                Toast.makeText(this@MainActivity, "SUCCESSFULLY SAVED DATA", Toast.LENGTH_LONG)
+                Toast.makeText(this@BussinesRegister, "SUCCESSFULLY SAVED DATA", Toast.LENGTH_LONG)
                     .show()
             }
         }
@@ -109,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         {
             withContext(Dispatchers.Main)
             {
-                Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@BussinesRegister, e.message, Toast.LENGTH_LONG).show()
             }
         }
     }
