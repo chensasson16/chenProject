@@ -14,6 +14,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -88,18 +89,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun retrieveCustomer() = CoroutineScope(Dispatchers.IO).launch {
-        try {
-            val querySnapshot = costumerCollectionRef.get().await()
 
-        } catch (e:Exception){
-
-        }
-    }
 
     private fun saveCustomer(customer: Customer) = CoroutineScope(Dispatchers.Main).launch {
         try {
-            costumerCollectionRef.add(customer).await()
+            auth.currentUser?.let { costumerCollectionRef.document(it.email.toString()).set(customer).await() }
             withContext(Dispatchers.Main) {
                 Toast.makeText(this@MainActivity, "SUCCESSFULLY SAVED DATA", Toast.LENGTH_LONG)
                     .show()

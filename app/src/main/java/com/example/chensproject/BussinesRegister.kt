@@ -92,9 +92,9 @@ class BussinesRegister : AppCompatActivity() {
 
     private fun saveBuisness(buissnes: Buissnes) = CoroutineScope(Dispatchers.Main).launch {
         try {
-            buisnessrCollectionRef.add(buissnes).await()
+            auth.currentUser?.let { buisnessrCollectionRef.document(it.email.toString()).set(buissnes).await() }
             withContext(Dispatchers.Main) {
-                Toast.makeText(this@BussinesRegister, "SUCCESSFULLY SAVED DATA", Toast.LENGTH_LONG)
+                Toast.makeText(this@BussinesRegister, "SUCCESSFULLY SAVED DATA ${auth.currentUser?.uid}", Toast.LENGTH_LONG)
                     .show()
             }
         }
