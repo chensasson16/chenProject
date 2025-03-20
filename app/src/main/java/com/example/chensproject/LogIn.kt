@@ -74,6 +74,13 @@ class Login : AppCompatActivity() {
 
 
 }
+    private fun subscribeToRealtimeUpdate(){
+        costumerCollectionRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->  }
+
+    }
+
+
+
     private fun retrieveCustomer(email:String) = CoroutineScope(Dispatchers.IO).launch {
         try {
             val querySnapshot = costumerCollectionRef.document(email).get().await()
