@@ -1,45 +1,35 @@
 package com.example.chensproject
 
-import android.provider.ContactsContract.CommonDataKinds.Phone
-import com.google.common.collect.Queues
+class Customer(name: String, phone: String, queuelist: List<Queue>) {
+    var name: String = name
+        private set
 
-class Customer (Name: String, Phone: String, Queuelist: List<Queue>){
-    private var Name: String
-    private var Phone: String
-    private var Queuelist = mutableListOf<Queue>()
-//פעולה בונה
-    init {
-        this.Name=Name
-        this.Phone=Phone
-        this.Queuelist= Queuelist.toMutableList()
-    }
+    var phone: String = phone
+        private set
 
-
-    fun getName(): String {
-        return Name
-    }
-
-    fun getPhone(): String {
-        return Phone
-    }
+    private var queuelist = queuelist.toMutableList()
 
     fun getQueuelist(): List<Queue> {
-        return Queuelist
+        return queuelist
     }
 
-    fun setName(newName: String){
-        Name=newName
+    fun setName(newName: String) {
+        name = newName
     }
-    fun setPhone(newPhone: String){
-        Phone=newPhone
+
+    fun setPhone(newPhone: String) {
+        phone = newPhone
     }
-    fun setQueuelist(newQueuelist: List<Queue>){
-        Queuelist = newQueuelist.toMutableList()
+
+    fun setQueuelist(newQueuelist: List<Queue>) {
+        queuelist = newQueuelist.toMutableList()
     }
-    fun cancleQueue(newqueue:Queue ){
-        Queuelist.remove(newqueue)
+
+    fun cancelQueue(queue: Queue) {
+        queuelist.remove(queue)
     }
-    fun addQueue(newqueue: Queue){
-        Queuelist.add(newqueue)
+
+    fun addQueue(queue: Queue) {
+        queuelist.add(queue)
     }
 }

@@ -1,5 +1,6 @@
 package com.example.chensproject
 
+import android.location.Location
 import android.widget.Button
 import android.widget.EditText
 import java.util.Queue
@@ -12,6 +13,7 @@ class Buissnes(Name: String, aboutMe: String, queeuList: List<com.example.chensp
     private lateinit var aboutMe: String
     private var customersList = mutableListOf<Customer>()
     private lateinit var prices: String;
+    private lateinit var Location: String
     private var possiblequeues= mutableListOf<com.example.chensproject.Queue>()
     private var queueList= mutableListOf<com.example.chensproject.Queue>()
     init{
@@ -19,6 +21,7 @@ class Buissnes(Name: String, aboutMe: String, queeuList: List<com.example.chensp
         this.aboutMe=aboutMe
         this.customersList=customersList.toMutableList()
         this.prices=prices
+        this.Location=Location
         this.possiblequeues=possiblequeues
         this.queueList = queueList.toMutableList()
     }
@@ -41,6 +44,10 @@ class Buissnes(Name: String, aboutMe: String, queeuList: List<com.example.chensp
         return prices
     }
 
+    fun getlocation(): String{
+        return Location
+    }
+
     fun getpossiblequeues(): List<com.example.chensproject.Queue>{
         return possiblequeues
     }
@@ -58,6 +65,12 @@ class Buissnes(Name: String, aboutMe: String, queeuList: List<com.example.chensp
     fun setprices(newprices: String){
         prices=newprices
     }
+    fun setlocation(newLocation: Location){
+        Location = newLocation.toString()
+    }
+
+
+
     fun setpossiblequeues(newpossiblequeues: List<com.example.chensproject.Queue>){
         possiblequeues=newpossiblequeues.toMutableList()
     }
@@ -73,7 +86,7 @@ class Buissnes(Name: String, aboutMe: String, queeuList: List<com.example.chensp
     //ביטול תור
     fun cancleQueue(newQueue:com.example.chensproject.Queue){
         queueList.remove(newQueue)
-        newQueue.getCustomer().cancleQueue(newQueue)
+        newQueue.getCustomer().cancelQueue(newQueue)
     }
     //הוספת תורים אפשריים
     fun addPossiblequeue(newQueue: com.example.chensproject.Queue){
@@ -84,4 +97,8 @@ class Buissnes(Name: String, aboutMe: String, queeuList: List<com.example.chensp
         possiblequeues.add(newQueue)
         queueList.remove(newQueue)
     }
+    // שינוי מיקום
+    fun changeLocation(newLocation: Location){
+        Location= newLocation.toString() }
+
 }

@@ -20,80 +20,86 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import kotlin.math.log
 
 class Login : AppCompatActivity() {
-    private val costumerCollectionRef=Firebase.firestore.collection("costumers")
-
-    lateinit var login: Button;
-    lateinit var register: TextView;
+    private val costumerCollectionRef = Firebase.firestore.collection("costumers")
     private lateinit var auth: FirebaseAuth
-     lateinit var tvCustomer:TextView
+
+    private lateinit var login: Button
+    private lateinit var register: TextView
+    private lateinit var tvCustomer: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Initialize Firebase Auth
         auth = Firebase.auth
         enableEdgeToEdge()
         setContentView(R.layout.log_in)
-         tvCustomer = findViewById(R.id.tvCustomer)
+
+        tvCustomer = findViewById(R.id.tvCustomer)
         login = findViewById(R.id.loginButton)
         register = findViewById(R.id.register)
-        login.setOnClickListener({
-            var Email = findViewById<EditText?>(R.id.Email).text
-            var LogInPassword = findViewById<EditText?>(R.id.LogInPassword).text
-            auth.signInWithEmailAndPassword(Email.toString(), LogInPassword.toString())
+
+        login.setOnClickListener {
+            val email = findViewById<EditText>(R.id.Email).text.toString()
+            val password = findViewById<EditText>(R.id.LogInPassword).text.toString()
+
+            auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success")
 
-                        retrieveCustomer(auth.currentUser?.email.toString())
-                        val intent = Intent(this,homescreen::class.java)
+                        retrieveCustomer(email)  // שליפת נתוני המשתמש
+                        subscribeToRealtimeUpdate()  // מאזין לעדכונים בזמן אמת
+
+                        val intent = Intent(this, homescreen::class.java)
                         startActivity(intent)
-                        val user = auth.currentUser
                     } else {
-                        // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
                         Toast.makeText(
-                            baseContext,
-                            "Authentication failed.",
-                            Toast.LENGTH_SHORT,
+                            this, "Authentication failed.", Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
-            Toast.makeText(this,"hi+${Email.toString()}", Toast.LENGTH_SHORT).show()
-    })
-        register.setOnClickListener({
-                val intent = Intent(this,MainActivity::class.java)
-                startActivity(intent)
         }
 
-        )
-
-
-
-}
-    private fun subscribeToRealtimeUpdate(){
-        costumerCollectionRef.addSnapshotListener { querySnapshot, firebaseFirestoreException ->  }
-
+        register.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 
+    // מאזין לשינויים בנתוני המשתמש המחובר בלבד
+    private fun subscribeToRealtimeUpdate() {
+        val userEmail = auth.currentUser?.email ?: return
 
+        costumerCollectionRef.document(userEmail)
+            .addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
+                if (firebaseFirestoreException != null) {
+                    Toast.makeText(this, firebaseFirestoreException.message, Toast.LENGTH_LONG).show()
+                    return@addSnapshotListener
+                }
 
-    private fun retrieveCustomer(email:String) = CoroutineScope(Dispatchers.IO).launch {
-        try {
-            val querySnapshot = costumerCollectionRef.document(email).get().await()
-            auth.currentUser?.let { Log.e(TAG, it.uid) }
-            val sb = StringBuilder()
-            val document = querySnapshot
-            var customer: Customer? = null
-            if (document != null) {
-                sb.append("${document.get("name")}\n")
-                customer = Customer(document.get("name").toString(),document.get("phone").toString(), listOf<Queue>())
+                documentSnapshot?.let {
+                    val customer = it.toObject<Customer>()
+                    if (customer != null) {
+                        runOnUiThread {
+                            tvCustomer.text = "Name: ${customer.name}\nPhone: ${customer.phone}"
+                        }
+                    }
+                }
             }
+    }
+
+    // שליפת נתוני המשתמש מתוך מסמך ה-Firebase
+    private fun retrieveCustomer(email: String) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val document = costumerCollectionRef.document(email).get().await()
+            val customer = document.toObject<Customer>()
+
             withContext(Dispatchers.Main) {
-                tvCustomer.text = sb.toString()
+                customer?.let {
+                    tvCustomer.text = "Name: ${it.name}\nPhone: ${it.phone}"
+                }
             }
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
@@ -101,5 +107,4 @@ class Login : AppCompatActivity() {
             }
         }
     }
-
 }

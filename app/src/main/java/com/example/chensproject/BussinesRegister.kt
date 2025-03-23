@@ -2,6 +2,7 @@ package com.example.chensproject
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -29,6 +30,7 @@ class BussinesRegister : AppCompatActivity() {
     lateinit var register:Button;
     lateinit var login:TextView;
     private lateinit var auth: FirebaseAuth
+    private lateinit var Location: EditText;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         auth = Firebase.auth
@@ -45,6 +47,7 @@ class BussinesRegister : AppCompatActivity() {
 
         register = findViewById(R.id.registerButton)
         login = findViewById(R.id.login)
+
         register.setOnClickListener({
             var Name= findViewById<EditText>(R.id.Name).text
             var Email = findViewById<EditText?>(R.id.Email).text

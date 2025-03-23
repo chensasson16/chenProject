@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
         register = findViewById(R.id.registerButton)
         login = findViewById(R.id.login)
         register.setOnClickListener({
