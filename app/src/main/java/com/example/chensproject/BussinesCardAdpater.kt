@@ -7,35 +7,29 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class BussinesCardAdpater(
-    var bussinesnamesList: ArrayList<String>,
-    var bussineslocationList: ArrayList<String>,
-    var context: Context) : RecyclerView.Adapter<BussinesCardAdpater.BussinesViewHolder>()
+class BusinessCardAdapter(
+    private var businessList: List<Buissnes>,
+    var context: Context
+) : RecyclerView.Adapter<BusinessCardAdapter.BusinessViewHolder>() {
 
-
-{
-
-    class BussinesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        var textViewBussinesName: TextView =itemView.findViewById(R.id.bussinesName)
-        var textViewlocationName: TextView =itemView.findViewById(R.id.locationNames)
-
+    class BusinessViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val businessName: TextView = itemView.findViewById(R.id.bussinesName)
+        val businessLocation: TextView = itemView.findViewById(R.id.locationNames)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BussinesViewHolder {
-       val view: View = LayoutInflater.from(parent.context)
-           .inflate(R.layout.bussinescard,parent,false)
-
-        return BussinesViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusinessViewHolder {
+        val view: View = LayoutInflater.from(parent.context)
+            .inflate(R.layout.bussinescard, parent, false)
+        return BusinessViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return bussinesnamesList.size
+        return businessList.size
     }
 
-    override fun onBindViewHolder(holder: BussinesViewHolder, position: Int) {
-        holder.textViewBussinesName.text = bussinesnamesList.get(position)
-        holder.textViewlocationName.text= bussineslocationList.get(position)
+    override fun onBindViewHolder(holder: BusinessViewHolder, position: Int) {
+        val business = businessList[position]
+        holder.businessName.text = business.getName()
+        holder.businessLocation.text = business.getlocation()
     }
-
-
 }

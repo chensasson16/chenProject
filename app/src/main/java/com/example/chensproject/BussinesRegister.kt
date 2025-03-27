@@ -2,7 +2,6 @@ package com.example.chensproject
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -20,17 +19,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import java.util.jar.Attributes.Name
 
 class BussinesRegister : AppCompatActivity() {
     private val buisnessrCollectionRef=Firebase.firestore.collection("buissness")
 
 
 
-    lateinit var register:Button;
-    lateinit var login:TextView;
+    lateinit var register:Button
+    lateinit var login:TextView
     private lateinit var auth: FirebaseAuth
-    private lateinit var Location: EditText;
+    private lateinit var location: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         auth = Firebase.auth
@@ -41,7 +39,7 @@ class BussinesRegister : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.register_bussines)
+        setContentView(R.layout.register_bussines);
 
 
 
@@ -54,6 +52,8 @@ class BussinesRegister : AppCompatActivity() {
             var SignUpPassword = findViewById<EditText?>(R.id.SignUpPassword).text
             var queueList =   mutableListOf<Queue>()
             var customerList =   mutableListOf<Customer>()
+            location = findViewById<EditText>(R.id.Location)
+
 
             auth.createUserWithEmailAndPassword(Email.toString(), SignUpPassword.toString())
                 .addOnCompleteListener(this) { task ->
@@ -63,7 +63,7 @@ class BussinesRegister : AppCompatActivity() {
                         val user = auth.currentUser
 
 
-                        val buissnes= Buissnes(Name.toString(),"MySite",queueList ,customerList,"100")
+                        val buissnes= Buissnes(Name.toString(),"MySite",queueList ,customerList,"100",location.text)
 
                         saveBuisness(buissnes)
 
@@ -86,6 +86,25 @@ class BussinesRegister : AppCompatActivity() {
             val intent = Intent(this,Login::class.java)
             startActivity(intent)
         })
+        fun fetchBusinesses(onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+            buisnessrCollectionRef.get()
+                .addOnSuccessListener { documents ->
+                    val businesses = mutableListOf<Buissnes>()
+                    for (document in documents) {
+                        val name = document.getString("name") ?: "Unknown"
+                        val location = document.getString("location") ?: "Unknown"
+                        businesses.add(Buissnes(name, location))
+                    }
+                    businessList.clear()
+                    businessList.addAll(businesses)
+                    notifyDataSetChanged()
+                    onSuccess()
+                }
+                .addOnFailureListener { exception ->
+                    Log.e("BusinessCardAdapter", "Error fetching businesses", exception)
+                    onFailure(exception)
+                }
+        }
 
 
 

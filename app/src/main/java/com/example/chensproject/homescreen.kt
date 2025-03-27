@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 class homescreen : AppCompatActivity() {
     lateinit var businessdatabase: TextView;
     lateinit var rv:RecyclerView;
-    var bussinesnamesList=ArrayList<String>();
-    var bussineslocationList=ArrayList<String>();
+//    var bussinesnamesList=ArrayList<String>();
+//    var bussineslocationList=ArrayList<String>();
+    private lateinit val bussinesList= mutableListOf<Buissnes>()
+
     lateinit var search: SearchView;
     lateinit var adapter : BussinesCardAdpater
 
@@ -27,13 +29,6 @@ class homescreen : AppCompatActivity() {
         search = findViewById(R.id.search)
         rv=findViewById(R.id.busirv);
         rv.layoutManager=LinearLayoutManager(this@homescreen)
-        bussinesnamesList.add("נעמה ניילס")
-        bussinesnamesList.add("אריאלה ביטון")
-        bussinesnamesList.add("שירה ציפורניים")
-
-        bussineslocationList.add("אשדוד")
-        bussineslocationList.add("שדרות")
-        bussineslocationList.add("אשקלון")
 
 
 

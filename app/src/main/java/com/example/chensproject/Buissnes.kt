@@ -1,19 +1,23 @@
 package com.example.chensproject
 
 import android.location.Location
-import android.widget.Button
-import android.widget.EditText
-import java.util.Queue
-import java.util.jar.Attributes.Name
+import android.text.Editable
 
 
-class Buissnes(Name: String, aboutMe: String, queeuList: List<com.example.chensproject.Queue> ,customersList: List<Customer> , prices: String)
+class Buissnes(
+    Name: String,
+    aboutMe: String,
+    queeuList: List<com.example.chensproject.Queue>,
+    customersList: List<Customer>,
+    prices: String,
+    location: Editable
+)
 {
     private lateinit var Name: String
     private lateinit var aboutMe: String
     private var customersList = mutableListOf<Customer>()
     private lateinit var prices: String;
-    private lateinit var Location: String
+    private lateinit var location: String
     private var possiblequeues= mutableListOf<com.example.chensproject.Queue>()
     private var queueList= mutableListOf<com.example.chensproject.Queue>()
     init{
@@ -21,7 +25,7 @@ class Buissnes(Name: String, aboutMe: String, queeuList: List<com.example.chensp
         this.aboutMe=aboutMe
         this.customersList=customersList.toMutableList()
         this.prices=prices
-        this.Location=Location
+        this.location= location.toString()
         this.possiblequeues=possiblequeues
         this.queueList = queueList.toMutableList()
     }
@@ -45,7 +49,7 @@ class Buissnes(Name: String, aboutMe: String, queeuList: List<com.example.chensp
     }
 
     fun getlocation(): String{
-        return Location
+        return location
     }
 
     fun getpossiblequeues(): List<com.example.chensproject.Queue>{
@@ -66,7 +70,7 @@ class Buissnes(Name: String, aboutMe: String, queeuList: List<com.example.chensp
         prices=newprices
     }
     fun setlocation(newLocation: Location){
-        Location = newLocation.toString()
+        location = newLocation.toString()
     }
 
 
@@ -99,6 +103,6 @@ class Buissnes(Name: String, aboutMe: String, queeuList: List<com.example.chensp
     }
     // שינוי מיקום
     fun changeLocation(newLocation: Location){
-        Location= newLocation.toString() }
+        location= newLocation.toString() }
 
 }
