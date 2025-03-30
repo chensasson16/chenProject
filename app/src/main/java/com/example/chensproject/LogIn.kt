@@ -28,6 +28,7 @@ class Login : AppCompatActivity() {
     private lateinit var login: Button
     private lateinit var register: TextView
     private lateinit var tvCustomer: TextView
+    private lateinit var tvBuissnes: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,4 +108,13 @@ class Login : AppCompatActivity() {
             }
         }
     }
+
+
+
+
+
+
+
+
+
 }

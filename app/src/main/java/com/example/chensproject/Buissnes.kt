@@ -1,108 +1,45 @@
-package com.example.chensproject
-
 import android.location.Location
-import android.text.Editable
-
+import com.example.chensproject.Customer
 
 class Buissnes(
-    Name: String,
-    aboutMe: String,
-    queeuList: List<com.example.chensproject.Queue>,
-    customersList: List<Customer>,
-    prices: String,
-    location: Editable
-)
-{
-    private lateinit var Name: String
-    private lateinit var aboutMe: String
+    businessName: String = "",
+    aboutMe: String = "",
+    prices: String = "",
+    businessLocation: String = "",
+    location: String =""
+) {
+    var name: String = businessName
+    private var aboutMe: String = aboutMe
     private var customersList = mutableListOf<Customer>()
-    private lateinit var prices: String;
-    private lateinit var location: String
-    private var possiblequeues= mutableListOf<com.example.chensproject.Queue>()
-    private var queueList= mutableListOf<com.example.chensproject.Queue>()
-    init{
-        this.Name=Name
-        this.aboutMe=aboutMe
-        this.customersList=customersList.toMutableList()
-        this.prices=prices
-        this.location= location.toString()
-        this.possiblequeues=possiblequeues
-        this.queueList = queueList.toMutableList()
-    }
+    private var prices: String = prices
+    var location: String = businessLocation
+    private var possiblequeues = mutableListOf<com.example.chensproject.Queue>()
+    private var queueList = mutableListOf<com.example.chensproject.Queue>()
 
-    // פעולות מאחזרות
-
-    fun getName(): String {
-        return Name
-    }
-
-    fun getaboutMe(): String{
-        return aboutMe
-    }
-
-    fun getcustomersList(): List<Customer>{
-        return customersList
-    }
-
-    fun getprices():String{
-        return prices
-    }
-
-    fun getlocation(): String{
-        return location
-    }
-
-    fun getpossiblequeues(): List<com.example.chensproject.Queue>{
-        return possiblequeues
-    }
-// פעולות קובעות
-
-    fun setName(newName: String){
-        Name=newName
-    }
-    fun setaboutMe(newaboutMe: String){
-        aboutMe=newaboutMe
-    }
-    fun setcustomersList(newcustomersList: List<Customer>){
-        customersList=newcustomersList.toMutableList()
-    }
-    fun setprices(newprices: String){
-        prices=newprices
-    }
-    fun setlocation(newLocation: Location){
-        location = newLocation.toString()
-    }
-
-
-
-    fun setpossiblequeues(newpossiblequeues: List<com.example.chensproject.Queue>){
-        possiblequeues=newpossiblequeues.toMutableList()
-    }
     // פעולות של המחלקה
-    // שינוי שם עסק
-    fun changeName(newName: String){
-        Name=newName
+    fun changeName(newName: String) {
+        name = newName
     }
-    //שינוי מחיר
-    fun changePrices(newprices: String){
-        prices=newprices
+
+    fun changePrices(newPrices: String) {
+        prices = newPrices
     }
-    //ביטול תור
-    fun cancleQueue(newQueue:com.example.chensproject.Queue){
+
+    fun cancelQueue(newQueue: com.example.chensproject.Queue) {
         queueList.remove(newQueue)
         newQueue.getCustomer().cancelQueue(newQueue)
     }
-    //הוספת תורים אפשריים
-    fun addPossiblequeue(newQueue: com.example.chensproject.Queue){
+
+    fun addPossibleQueue(newQueue: com.example.chensproject.Queue) {
         possiblequeues.add(newQueue)
     }
-    //העברת תור תפוס לרשימת התורים והורדה מהרשימה של התורים הפנויים
-    fun updatedQueue(newQueue: com.example.chensproject.Queue){
+
+    fun updateQueue(newQueue: com.example.chensproject.Queue) {
         possiblequeues.add(newQueue)
         queueList.remove(newQueue)
     }
-    // שינוי מיקום
-    fun changeLocation(newLocation: Location){
-        location= newLocation.toString() }
 
+    fun changeLocation(newLocation: String) {
+        location = newLocation
+    }
 }

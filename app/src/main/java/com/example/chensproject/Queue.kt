@@ -1,5 +1,7 @@
 package com.example.chensproject
 
+import Buissnes
+
 class Queue (customer: Customer, hour: String, date: String, atBussines: Buissnes){
     private lateinit var Customer: Customer
     private lateinit var hour: String

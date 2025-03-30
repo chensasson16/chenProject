@@ -1,5 +1,6 @@
 package com.example.chensproject
 
+import Buissnes
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
@@ -63,7 +64,9 @@ class BussinesRegister : AppCompatActivity() {
                         val user = auth.currentUser
 
 
-                        val buissnes= Buissnes(Name.toString(),"MySite",queueList ,customerList,"100",location.text)
+                        val buissnes= Buissnes(Name.toString(),"MySite","100",
+                            location.text.toString()
+                        )
 
                         saveBuisness(buissnes)
 
@@ -93,11 +96,12 @@ class BussinesRegister : AppCompatActivity() {
                     for (document in documents) {
                         val name = document.getString("name") ?: "Unknown"
                         val location = document.getString("location") ?: "Unknown"
-                        businesses.add(Buissnes(name, location))
+                        businesses.add(Buissnes(name,"" ,"",location))
                     }
+                    val businessList = mutableListOf<Buissnes>()
                     businessList.clear()
                     businessList.addAll(businesses)
-                    notifyDataSetChanged()
+                //    notifyDataSetChanged()
                     onSuccess()
                 }
                 .addOnFailureListener { exception ->
