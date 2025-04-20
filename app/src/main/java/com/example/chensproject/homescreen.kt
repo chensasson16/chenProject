@@ -1,6 +1,7 @@
 package com.example.chensproject
 import Buissnes
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
@@ -55,11 +56,12 @@ class homescreen : AppCompatActivity() {
         try {
             // שליפת כל המסמכים ממסד הנתונים
             val documents = bussinesCollectionRef.get().await()
-            Log.d(TAG," aa ${documents}")
+            Log.d(TAG, " aa ${documents}")
 
             withContext(Dispatchers.Main) {
                 for (document in documents) {
-                    val buissnes = document.toObject<Buissnes>() // המרת המסמך לאובייקט מסוג Buissnes
+                    val buissnes =
+                        document.toObject<Buissnes>() // המרת המסמך לאובייקט מסוג Buissnes
 
                     buissnes?.let {
                         // הוספת העסק שנמצא לרשימה
@@ -74,9 +76,10 @@ class homescreen : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 // הצגת שגיאה אם יש בעיה בטעינת הנתונים
                 Toast.makeText(this@homescreen, e.message, Toast.LENGTH_LONG).show()
-                Log.d(TAG," aa ${e}")
+                Log.d(TAG, " aa ${e}")
 
             }
         }
+
     }
 }

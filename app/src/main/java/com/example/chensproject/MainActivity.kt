@@ -42,9 +42,6 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-
-
-
         register = findViewById(R.id.registerButton)
         login = findViewById(R.id.login)
         register.setOnClickListener({
@@ -83,11 +80,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this,Login::class.java)
             startActivity(intent)
         })
-
-
-
-
-
     }
 
 

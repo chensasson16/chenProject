@@ -43,3 +43,4 @@ class Buissnes(
         location = newLocation
     }
 }
+
