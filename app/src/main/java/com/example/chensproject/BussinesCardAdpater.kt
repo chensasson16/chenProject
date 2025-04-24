@@ -46,6 +46,13 @@ class BussinesCardAdpater(
         }
     }
 
+    holder.submitButton.setOnClickListener {
+        val intent = Intent(context, AboutUser::class.java)
+        intent.putExtra("name", business.name)
+        intent.putExtra("location", business.location)
+        context.startActivity(intent)
+    }
+
     // Update function
     fun updateBusinessList(newBusinessList: List<Buissnes>) {
         businessList.clear()

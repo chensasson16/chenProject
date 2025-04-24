@@ -1,4 +1,5 @@
 package com.example.chensproject
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -27,5 +28,8 @@ class AboutUser : AppCompatActivity() {
         prices = findViewById(R.id.prices)
         submitButton = findViewById(R.id.submitButton)
 
+
+
     }
+
 }
