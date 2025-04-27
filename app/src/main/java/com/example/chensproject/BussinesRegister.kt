@@ -110,10 +110,6 @@ class BussinesRegister : AppCompatActivity() {
                 }
         }
 
-
-
-
-
     }
 
     private fun saveBuisness(buissnes: Buissnes) = CoroutineScope(Dispatchers.Main).launch {
