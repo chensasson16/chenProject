@@ -1,131 +1,115 @@
 package com.example.chensproject
 
-import Buissnes
-import android.content.ContentValues.TAG
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
-import com.google.firebase.firestore.firestore
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 
 class BussinesRegister : AppCompatActivity() {
-    private val buisnessrCollectionRef=Firebase.firestore.collection("buissness")
-
-
-
-    lateinit var register:Button
-    lateinit var login:TextView
+    private val buisnessRef = Firebase.firestore.collection("buissness")
     private lateinit var auth: FirebaseAuth
+
+    private lateinit var register: Button
+    private lateinit var login: TextView
     private lateinit var location: EditText
+    private lateinit var startTimeButton: Button
+    private lateinit var endTimeButton: Button
+    private lateinit var selectedStartTime: String
+    private lateinit var selectedEndTime: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        auth = Firebase.auth
-
-        fun reload() {
-            TODO("Not yet implemented")
-        }
-
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.register_bussines);
+        setContentView(R.layout.register_bussines)
 
-
+        auth = Firebase.auth
 
         register = findViewById(R.id.registerButton)
         login = findViewById(R.id.login)
+        location = findViewById(R.id.Location)
+        startTimeButton = findViewById(R.id.startTimeButton)
+        endTimeButton = findViewById(R.id.endTimeButton)
 
-        register.setOnClickListener({
-            var Name= findViewById<EditText>(R.id.Name).text
-            var Email = findViewById<EditText?>(R.id.Email).text
-            var SignUpPassword = findViewById<EditText?>(R.id.SignUpPassword).text
-            var queueList =   mutableListOf<Queue>()
-            var customerList =   mutableListOf<Customer>()
-            location = findViewById<EditText>(R.id.Location)
+        val checkboxes = listOf(
+            R.id.checkSunday to "ראשון",
+            R.id.checkMonday to "שני",
+            R.id.checkTuesday to "שלישי",
+            R.id.checkWednesday to "רביעי",
+            R.id.checkThursday to "חמישי",
+            R.id.checkFriday to "שישי"
+        )
 
+        selectedStartTime = ""
+        selectedEndTime = ""
 
-            auth.createUserWithEmailAndPassword(Email.toString(), SignUpPassword.toString())
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "createUserWithEmail:success")
-                        val user = auth.currentUser
+        startTimeButton.setOnClickListener {
+            TimePickerDialog(this, { _, hour, minute ->
+                selectedStartTime = String.format("%02d:%02d", hour, minute)
+                startTimeButton.text = "שעת התחלה: $selectedStartTime"
+            }, 9, 0, true).show()
+        }
 
+        endTimeButton.setOnClickListener {
+            TimePickerDialog(this, { _, hour, minute ->
+                selectedEndTime = String.format("%02d:%02d", hour, minute)
+                endTimeButton.text = "שעת סיום: $selectedEndTime"
+            }, 17, 0, true).show()
+        }
 
-                        val buissnes= Buissnes(Name.toString(),"MySite","100",
-                            location.text.toString()
-                        )
+        register.setOnClickListener {
+            val name = findViewById<EditText>(R.id.Name).text.toString()
+            val email = findViewById<EditText>(R.id.Email).text.toString()
+            val password = findViewById<EditText>(R.id.SignUpPassword).text.toString()
+            val aboutMe = findViewById<EditText>(R.id.AboutMe).text.toString()
+            val portfolio = findViewById<EditText>(R.id.Portfolio).text.toString()
+            val prices = findViewById<EditText>(R.id.Prices).text.toString()
 
-                        saveBuisness(buissnes)
+            val selectedDays = checkboxes.mapNotNull { (id, name) ->
+                val checkbox = findViewById<CheckBox>(id)
+                if (checkbox.isChecked) name else null
+            }
 
-                        val intent = Intent(this,homescreen::class.java)
-                        startActivity(intent)
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                        Toast.makeText(
-                            baseContext,
-                            "Authentication failed.",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                    }
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnSuccessListener {
+                    val business = Buissnes(
+                        businessName = name,
+                        aboutMe = aboutMe,
+                        portfolio = portfolio,
+                        prices = prices,
+                        businessLocation = location.text.toString(),
+                        availableDays = selectedDays,
+                        startTime = selectedStartTime,
+                        endTime = selectedEndTime
+                    )
+                    saveBusiness(business)
                 }
-            Toast.makeText(this,"hi+${Email.toString()}",Toast.LENGTH_SHORT).show()
-
-        })
-        login.setOnClickListener({
-            val intent = Intent(this,Login::class.java)
-            startActivity(intent)
-        })
-        fun fetchBusinesses(onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
-            buisnessrCollectionRef.get()
-                .addOnSuccessListener { documents ->
-                    val businesses = mutableListOf<Buissnes>()
-                    for (document in documents) {
-                        val name = document.getString("name") ?: "Unknown"
-                        val location = document.getString("location") ?: "Unknown"
-                        businesses.add(Buissnes(name,"" ,"",location))
-                    }
-                    val businessList = mutableListOf<Buissnes>()
-                    businessList.clear()
-                    businessList.addAll(businesses)
-                //    notifyDataSetChanged()
-                    onSuccess()
-                }
-                .addOnFailureListener { exception ->
-                    Log.e("BusinessCardAdapter", "Error fetching businesses", exception)
-                    onFailure(exception)
+                .addOnFailureListener {
+                    Toast.makeText(this, "שגיאה בהרשמה: ${it.message}", Toast.LENGTH_SHORT).show()
                 }
         }
 
+        login.setOnClickListener {
+            startActivity(Intent(this, Login::class.java))
+        }
     }
 
-    private fun saveBuisness(buissnes: Buissnes) = CoroutineScope(Dispatchers.Main).launch {
+    private fun saveBusiness(business: Buissnes) = CoroutineScope(Dispatchers.Main).launch {
         try {
-            auth.currentUser?.let { buisnessrCollectionRef.document(it.email.toString()).set(buissnes).await() }
-            withContext(Dispatchers.Main) {
-                Toast.makeText(this@BussinesRegister, "SUCCESSFULLY SAVED DATA ${auth.currentUser?.uid}", Toast.LENGTH_LONG)
-                    .show()
+            auth.currentUser?.let {
+                buisnessRef.document(it.email!!).set(business).await()
+                Toast.makeText(this@BussinesRegister, "העסק נשמר בהצלחה", Toast.LENGTH_LONG).show()
+                startActivity(Intent(this@BussinesRegister, homescreen::class.java))
             }
-        }
-        catch (e:Exception)
-        {
-            withContext(Dispatchers.Main)
-            {
-                Toast.makeText(this@BussinesRegister, e.message, Toast.LENGTH_LONG).show()
-            }
+        } catch (e: Exception) {
+            Toast.makeText(this@BussinesRegister, "שגיאה: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.example.chensproject
 
-import Buissnes
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -34,14 +33,14 @@ class BussinesCardAdpater(
 
     override fun onBindViewHolder(holder: BusinessViewHolder, position: Int) {
         val business = businessList[position]
-        holder.businessName.text = business.name
-        holder.businessLocation.text = business.location
+        holder.businessName.text = business.businessName
+        holder.businessLocation.text = business.businessLocation
 
         // Set click listener on the entire item view for better UX
         holder.aboutMe.setOnClickListener {
             val intent = Intent(context, AboutUser::class.java)
-            intent.putExtra("name", business.name)
-            intent.putExtra("location", business.location)
+            intent.putExtra("name", business.businessName)
+            intent.putExtra("location", business.businessLocation)
             context.startActivity(intent)
         }
     }
