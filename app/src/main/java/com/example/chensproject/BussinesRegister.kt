@@ -80,7 +80,9 @@ class BussinesRegister : AppCompatActivity() {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
                     val business = Buissnes(
+
                         businessName = name,
+                        businessEmail= email,
                         aboutMe = aboutMe,
                         portfolio = portfolio,
                         prices = prices,
@@ -97,7 +99,8 @@ class BussinesRegister : AppCompatActivity() {
         }
 
         login.setOnClickListener {
-            startActivity(Intent(this, Login::class.java))
+            startActivity(Intent(this, BussinesLogin::class.java))
+
         }
     }
 
@@ -106,7 +109,7 @@ class BussinesRegister : AppCompatActivity() {
             auth.currentUser?.let {
                 buisnessRef.document(it.email!!).set(business).await()
                 Toast.makeText(this@BussinesRegister, "העסק נשמר בהצלחה", Toast.LENGTH_LONG).show()
-                startActivity(Intent(this@BussinesRegister, homescreen::class.java))
+                startActivity(Intent(this@BussinesRegister, BuissnessHomeScreen::class.java))
             }
         } catch (e: Exception) {
             Toast.makeText(this@BussinesRegister, "שגיאה: ${e.message}", Toast.LENGTH_LONG).show()

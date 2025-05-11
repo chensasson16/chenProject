@@ -1,5 +1,6 @@
 package com.example.chensproject
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -33,7 +34,7 @@ class AboutUser : AppCompatActivity() {
         submitButton = findViewById(R.id.submitButton)
         daysAndHours = findViewById(R.id.daysAndHours)
 
-        val userEmail = auth.currentUser?.email
+        val userEmail =intent.getStringExtra("bEmail")
 
         if (userEmail != null) {
             db.collection("buissness").document(userEmail)
@@ -63,6 +64,10 @@ class AboutUser : AppCompatActivity() {
                 }
         } else {
             Toast.makeText(this, "משתמש לא מחובר", Toast.LENGTH_SHORT).show()
+        }
+        submitButton.setOnClickListener {
+            val intent = Intent(this, dates::class.java)
+            startActivity(intent)
         }
     }
 }

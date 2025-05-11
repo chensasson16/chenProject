@@ -40,7 +40,7 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
-                android:text="מיקום"
+                android:text="תאריך"
                 android:textColor="#4A4A4A"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="מידע נוסף"
+            android:text="ביטול התור"
             android:textSize="17dp" />
 
 

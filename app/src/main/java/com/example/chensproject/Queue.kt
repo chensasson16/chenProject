@@ -1,18 +1,22 @@
 package com.example.chensproject
 
 
-class Queue (customer: Customer, hour: String, date: String, atBussines: Buissnes){
+class Queue(customer: Customer?, hour: String, date: String, atBussines: Buissnes?){
     private lateinit var Customer: Customer
     private lateinit var hour: String
     private lateinit var date: String
-    private var atBussines: Buissnes
+    private lateinit var atBussines: Buissnes
     private var isAviable : Boolean = true
 
     init {
-        this.Customer  = customer
+        if (customer != null) {
+            this.Customer  = customer
+        }
         this.hour= hour
         this.date = date
-        this.atBussines = atBussines
+        if (atBussines != null) {
+            this.atBussines = atBussines
+        }
     }
 
     fun getCustomer(): Customer {

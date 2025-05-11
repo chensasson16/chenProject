@@ -15,9 +15,9 @@ class BussinesCardAdpater(
 
     class BusinessViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // Make sure these IDs exactly match what's in your bussinescard.xml layout
-        val businessName: TextView = itemView.findViewById(R.id.bussinesName)
-        val businessLocation: TextView = itemView.findViewById(R.id.locationNames)
-        val aboutMe: TextView = itemView.findViewById(R.id.toAboutme)
+        val businessName: TextView = itemView.findViewById(R.id.customerName)
+        val businessLocation: TextView = itemView.findViewById(R.id.date)
+        val aboutMe: TextView = itemView.findViewById(R.id.cancel)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusinessViewHolder {
@@ -39,8 +39,7 @@ class BussinesCardAdpater(
         // Set click listener on the entire item view for better UX
         holder.aboutMe.setOnClickListener {
             val intent = Intent(context, AboutUser::class.java)
-            intent.putExtra("name", business.businessName)
-            intent.putExtra("location", business.businessLocation)
+            intent.putExtra("bEmail", business.businessEmail)
             context.startActivity(intent)
         }
     }

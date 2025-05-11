@@ -29,6 +29,7 @@ class Login : AppCompatActivity() {
     private lateinit var register: TextView
     private lateinit var tvCustomer: TextView
     private lateinit var tvBuissnes: TextView
+    private lateinit var moveToB: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +40,7 @@ class Login : AppCompatActivity() {
         tvCustomer = findViewById(R.id.tvCustomer)
         login = findViewById(R.id.loginButton)
         register = findViewById(R.id.register)
+        moveToB=findViewById(R.id.moveTo_btn)
 
         login.setOnClickListener {
             val email = findViewById<EditText>(R.id.Email).text.toString()
@@ -67,7 +69,12 @@ class Login : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+        moveToB.setOnClickListener {
+            val intent2 = Intent(this, BussinesRegister::class.java)
+            startActivity(intent2)
+        }
     }
+
 
     // מאזין לשינויים בנתוני המשתמש המחובר בלבד
     private fun subscribeToRealtimeUpdate() {

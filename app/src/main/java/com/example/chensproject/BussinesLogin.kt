@@ -27,11 +27,12 @@ class BussinesLogin : AppCompatActivity() {
 
 
 
-    lateinit var register:Button
-    lateinit var login:TextView
+    lateinit var register:TextView
+    lateinit var login:Button
     private lateinit var auth: FirebaseAuth
     private lateinit var location: EditText
     private lateinit var tvBuisness: TextView
+    private lateinit var moveToC: Button
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +45,7 @@ class BussinesLogin : AppCompatActivity() {
 
         register = findViewById(R.id.register)
         login = findViewById(R.id.loginButton)
+        moveToC = findViewById(R.id.moveToC_btn)
 
 
         login.setOnClickListener({
@@ -57,7 +59,7 @@ class BussinesLogin : AppCompatActivity() {
                         Log.d(TAG, "createUserWithEmail:success")
                         val user = auth.currentUser
                         user?.email?.let { it1 -> retrieveBussines(it1) }
-                        val intent = Intent(this, homescreen::class.java)
+                        val intent = Intent(this, BuissnessHomeScreen::class.java)
                         startActivity(intent)
                     } else {
                         // If sign in fails, display a message to the user.
@@ -70,12 +72,20 @@ class BussinesLogin : AppCompatActivity() {
                     }
                 }
             Toast.makeText(this, "hi+${Email.toString()}", Toast.LENGTH_SHORT).show()
-
+            register.setOnClickListener{
+                val intent = Intent(this, BussinesRegister::class.java)
+                startActivity(intent)
+            }
 
             // שליפת נתוני המשתמש מתוך מסמך ה-Firebase
 
 
         })
+
+        moveToC.setOnClickListener {
+             val intent2 = Intent(this, Login::class.java)
+            startActivity(intent2)
+        }
     }
     fun retrieveBussines(email: String) = CoroutineScope(Dispatchers.IO).launch {
         try {
