@@ -2,10 +2,10 @@ package com.example.chensproject
 
 
 class Queue(customer: Customer?, hour: String, date: String, atBussines: Buissnes?){
-    private lateinit var Customer: Customer
+    private  var Customer: Customer = Customer()
     private lateinit var hour: String
     private lateinit var date: String
-    private lateinit var atBussines: Buissnes
+    private  var atBussines: Buissnes = Buissnes()
     private var isAviable : Boolean = true
 
     init {

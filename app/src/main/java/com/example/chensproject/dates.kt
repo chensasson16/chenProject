@@ -1,5 +1,6 @@
 package com.example.chensproject
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.widget.CalendarView
@@ -31,6 +32,15 @@ class dates : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val daysMap = mapOf(
+            Calendar.SUNDAY to "יום ראשון",
+            Calendar.MONDAY to "יום שני",
+            Calendar.TUESDAY to "יום שלישי",
+            Calendar.WEDNESDAY to "יום רביעי",
+            Calendar.THURSDAY to "יום חמישי",
+            Calendar.FRIDAY to "יום שישי",
+            Calendar.SATURDAY to "שבת"
+        )
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.dates)
@@ -72,16 +82,15 @@ class dates : AppCompatActivity() {
             val calendar = Calendar.getInstance()
             calendar.set(year, month, dayOfMonth)
 
-            val dayName = SimpleDateFormat("EEEE", Locale("he", "IL")).format(calendar.time)
+            val dayName = daysMap[calendar.get(Calendar.DAY_OF_WEEK)] ?: ""
             dayText.text = "יום השבוע: $dayName"
-
-            // כאן תוכל לבדוק אם היום הזה נמצא ב-availableDays ולהציג תורים וכו'
-            if(availableDays.contains(dayName)){
-                for(i in startTime.toInt()..endTime.toInt()){
-                  queueList.add(Queue(null,i.toString(),dayName,null))
+            Log.d(TAG, "aabb ${availableDays.toString()}")
+            if (availableDays.contains(dayName)) {
+                queueList.clear()
+                for (i in 9..18) {
+                    queueList.add(Queue(null, i.toString(), dayName, null))
                 }
-                adapter.notifyDataSetChanged() // חשוב לעדכן את ה-RecyclerView לאחר שמוסיף נתונים חדשים
-
+                adapter.notifyDataSetChanged()
             }
         }
     }

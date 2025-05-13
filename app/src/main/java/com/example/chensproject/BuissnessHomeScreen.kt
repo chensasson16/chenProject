@@ -24,13 +24,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 class BuissnessHomeScreen : AppCompatActivity() {
-    lateinit var businessdatabase: TextView
     lateinit var rv: RecyclerView
     private var queueList = mutableListOf<Queue>() // רשימה אחת עבור העסקים
     private val bussinesCollectionRef = Firebase.firestore.collection("buissness")
     private lateinit var auth: FirebaseAuth
 
-    lateinit var search: SearchView
     lateinit var adapter: QueueCardAdpater
 
     override fun onCreate(savedInstanceState: Bundle?) {

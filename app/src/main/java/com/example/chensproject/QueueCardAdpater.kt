@@ -34,8 +34,10 @@ class QueueCardAdpater(
     override fun onBindViewHolder(holder: queueViewHolder, position: Int) {
         val queue = queueList[position]
         holder.customerName.text = queue.getCustomer().name
-        holder.date.text = queue.getdate()
-
+        holder.date.text = "${queue.getdate()} שעה : ${queue.gethour()}"
+        if (queue.getCustomer().name == null){
+            holder.cancel.text = "קבע תור"
+        }
         //ביטול תור קיים
         holder.cancel.setOnClickListener {
         }

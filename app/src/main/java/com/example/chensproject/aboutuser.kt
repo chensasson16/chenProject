@@ -67,6 +67,7 @@ class AboutUser : AppCompatActivity() {
         }
         submitButton.setOnClickListener {
             val intent = Intent(this, dates::class.java)
+            intent.putExtra("bEmail",userEmail)
             startActivity(intent)
         }
     }
