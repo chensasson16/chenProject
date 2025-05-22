@@ -46,6 +46,7 @@ class BussinesLogin : AppCompatActivity() {
         register = findViewById(R.id.register)
         login = findViewById(R.id.loginButton)
         moveToC = findViewById(R.id.moveToC_btn)
+        tvBuisness = findViewById(R.id.tvBuisness)
 
 
         login.setOnClickListener({

@@ -29,7 +29,7 @@ class BuissnessHomeScreen : AppCompatActivity() {
     private val bussinesCollectionRef = Firebase.firestore.collection("buissness")
     private lateinit var auth: FirebaseAuth
 
-    lateinit var adapter: QueueCardAdpater
+    lateinit var adapter: BookedQueueAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +42,8 @@ class BuissnessHomeScreen : AppCompatActivity() {
 
         rv.layoutManager = LinearLayoutManager(this@BuissnessHomeScreen)
 
-        // אתחול של ה-Adapter
-        adapter = QueueCardAdpater(queueList, this@BuissnessHomeScreen)
+        // אתחול של ה-Adapter החדש
+        adapter = BookedQueueAdapter(queueList, this@BuissnessHomeScreen)
         rv.adapter = adapter
 
         // קריאה לפונקציה לשליפת העסקים
@@ -58,17 +58,14 @@ class BuissnessHomeScreen : AppCompatActivity() {
             Log.d(TAG, " aa ${documents}")
 
             withContext(Dispatchers.Main) {
-                    val buissnes =
-                        documents.toObject<Buissnes>() // המרת המסמך לאובייקט מסוג Buissnes
-
-                    buissnes?.let {
-                        // הוספת העסק שנמצא לרשימה
-                        queueList = (it.queueTaken).toMutableList()
-                    }
+                val buissnes = documents.toObject<Buissnes>()
+                buissnes?.let {
+                    queueList = (it.queueTaken ?: listOf()).filter { queue -> queue.customerEmail.isNotEmpty() }.toMutableList()
+                    adapter = BookedQueueAdapter(queueList, this@BuissnessHomeScreen)
+                    rv.adapter = adapter
+                    adapter.notifyDataSetChanged()
                 }
-
-                // עדכון ה-RecyclerView
-                adapter.notifyDataSetChanged() // חשוב לעדכן את ה-RecyclerView לאחר שמוסיף נתונים חדשים
+            }
 
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {

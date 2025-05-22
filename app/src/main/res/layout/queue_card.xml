@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="101dp"
+        android:layout_height="wrap_content"
         android:background="#FFFFFF"
         android:orientation="vertical"
         android:padding="16dp">
@@ -24,7 +24,7 @@
             <TextView
                 android:id="@+id/customerName"
                 android:layout_width="0dp"
-                android:layout_height="46dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
@@ -32,7 +32,7 @@
                 android:textColor="#4A4A4A"
                 android:textSize="18sp" />
 
-            <!-- Location -->
+            <!-- Date -->
             <TextView
                 android:id="@+id/date"
                 android:layout_width="0dp"
@@ -45,16 +45,28 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
+        <!-- Add Queue Button -->
+        <Button
+            android:id="@+id/addQueueButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="הוסף תור"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <!-- Cancel Button -->
         <TextView
             android:id="@+id/cancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="ביטול התור"
-            android:textSize="17dp" />
+            android:textColor="#F44336"
+            android:textSize="17sp"
+            android:layout_marginTop="8dp" />
 
-
-        <!-- Gallery -->
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
