@@ -20,7 +20,8 @@ class AboutUser : AppCompatActivity() {
     lateinit var daysAndHours: TextView
 
     private val db = FirebaseFirestore.getInstance()
-    private val auth = FirebaseAuth.getInstance()
+    private lateinit var auth: FirebaseAuth
+    private var userEmail: String? = null  // Make it a class variable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,10 +35,16 @@ class AboutUser : AppCompatActivity() {
         submitButton = findViewById(R.id.submitButton)
         daysAndHours = findViewById(R.id.daysAndHours)
 
-        val userEmail =intent.getStringExtra("bEmail")
+        auth = FirebaseAuth.getInstance()
 
-        if (userEmail != null) {
-            db.collection("buissness").document(userEmail)
+        // Get the email from intent and add debugging
+        userEmail = intent.getStringExtra("bEmail")
+        Log.d("AboutUser", "Received bEmail: $userEmail")
+
+        if (userEmail != null && userEmail!!.isNotEmpty()) {
+            Log.d("AboutUser", "Loading data for: $userEmail")
+
+            db.collection("buissness").document(userEmail!!)
                 .get()
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
@@ -54,21 +61,32 @@ class AboutUser : AppCompatActivity() {
                         portfolio.text = portfolioStr
                         prices.text = pricesStr
                         daysAndHours.text = "ימים: ${daysList.joinToString(", ")}\nשעות: $startTime - $endTime"
+
+                        Log.d("AboutUser", "Data loaded successfully for: $name")
                     } else {
+                        Log.w("AboutUser", "Document does not exist for: $userEmail")
                         Toast.makeText(this, "לא נמצא מידע על העסק", Toast.LENGTH_SHORT).show()
                     }
                 }
                 .addOnFailureListener { e ->
-                    Log.e("AboutUser", "Error fetching data", e)
+                    Log.e("AboutUser", "Error fetching data for: $userEmail", e)
                     Toast.makeText(this, "שגיאה בטעינת המידע", Toast.LENGTH_SHORT).show()
                 }
         } else {
-            Toast.makeText(this, "משתמש לא מחובר", Toast.LENGTH_SHORT).show()
+            Log.e("AboutUser", "bEmail is null or empty")
+            Toast.makeText(this, "שגיאה: לא נמצא מזהה עסק", Toast.LENGTH_SHORT).show()
         }
+
         submitButton.setOnClickListener {
-            val intent = Intent(this, dates::class.java)
-            intent.putExtra("bEmail",userEmail)
-            startActivity(intent)
+            Log.d("AboutUser", "Submit button clicked, passing bEmail: $userEmail")
+
+            if (userEmail != null && userEmail!!.isNotEmpty()) {
+                val intent = Intent(this, dates::class.java)
+                intent.putExtra("bEmail", userEmail)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "שגיאה: לא ניתן לעבור לעמוד הבא - חסר מזהה עסק", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

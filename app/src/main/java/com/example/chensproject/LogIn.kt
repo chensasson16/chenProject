@@ -33,10 +33,10 @@ class Login : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = Firebase.auth
         enableEdgeToEdge()
         setContentView(R.layout.log_in)
 
+        auth = FirebaseAuth.getInstance()
         tvCustomer = findViewById(R.id.tvCustomer)
         login = findViewById(R.id.loginButton)
         register = findViewById(R.id.register)

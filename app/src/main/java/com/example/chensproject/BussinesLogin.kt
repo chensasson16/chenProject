@@ -36,12 +36,11 @@ class BussinesLogin : AppCompatActivity() {
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
-        auth = Firebase.auth
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.bussines_login);
+        setContentView(R.layout.bussines_login)
 
-
+        auth = FirebaseAuth.getInstance()
 
         register = findViewById(R.id.register)
         login = findViewById(R.id.loginButton)
@@ -61,6 +60,7 @@ class BussinesLogin : AppCompatActivity() {
                         val user = auth.currentUser
                         user?.email?.let { it1 -> retrieveBussines(it1) }
                         val intent = Intent(this, BuissnessHomeScreen::class.java)
+                        intent.putExtra("bEmail",user?.email)
                         startActivity(intent)
                     } else {
                         // If sign in fails, display a message to the user.

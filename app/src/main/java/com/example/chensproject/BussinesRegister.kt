@@ -30,7 +30,7 @@ class BussinesRegister : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.register_bussines)
 
-        auth = Firebase.auth
+        auth = FirebaseAuth.getInstance()
 
         register = findViewById(R.id.registerButton)
         login = findViewById(R.id.login)

@@ -32,16 +32,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        auth = Firebase.auth
-
-        fun reload() {
-            TODO("Not yet implemented")
-        }
-
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
+        auth = FirebaseAuth.getInstance()
         register = findViewById(R.id.registerButton)
         login = findViewById(R.id.login)
         register.setOnClickListener({

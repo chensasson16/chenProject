@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.CoroutineScope
@@ -29,12 +30,14 @@ class homescreen : AppCompatActivity() {
 
     lateinit var search: SearchView
     lateinit var adapter: BussinesCardAdpater
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.homescreen)
 
+        auth = FirebaseAuth.getInstance()
         // אתחול של ה-UI
         businessdatabase = findViewById(R.id.businessdatabase)
         search = findViewById(R.id.search)

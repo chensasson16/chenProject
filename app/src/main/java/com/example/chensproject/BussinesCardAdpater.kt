@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 
 class BussinesCardAdpater(
     private var businessList: MutableList<Buissnes>,
     private val context: Context
 ) : RecyclerView.Adapter<BussinesCardAdpater.BusinessViewHolder>() {
+
+    private lateinit var auth: FirebaseAuth
 
     class BusinessViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // Make sure these IDs exactly match what's in your bussinescard.xml layout
@@ -24,6 +27,7 @@ class BussinesCardAdpater(
         // Use the correct layout file
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.bussinescard, parent, false)
+        auth = FirebaseAuth.getInstance()
         return BusinessViewHolder(view)
     }
 
